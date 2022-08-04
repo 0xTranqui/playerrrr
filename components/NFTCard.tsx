@@ -2,6 +2,7 @@ import { NFTPreview, MediaConfiguration } from "@zoralabs/nft-components";
 import { Networks, Strategies } from "@zoralabs/nft-hooks"
 import { CreateAsk } from "./Asks/CreateAsk";
 import AskWrite_disclosure from "./Asks/AskWrite_disclosure";
+import Image from "next/image";
 
 const zdkStrategyMainnet = new Strategies.ZDKFetchStrategy(
     Networks.MAINNET
@@ -17,22 +18,17 @@ const NFTCard = ({ nfts }) => {
             nfts.map((nft, index) => {
                 return (
                     <div key={nft.token.tokenId} className="border border-black m-2 w-10/10 sm:w-5/5 md:w-3/3 border-dashed flex flex-row flex-wrap justify-center">
-                        <MediaConfiguration
-                        networkId="1"                        
-                        strategy={zdkStrategyMainnet}
-                        strings={{
-                            CARD_OWNED_BY: "↳",
-                            CARD_CREATED_BY: "↳",                           
-                        }}                    
-                        >
-                        <NFTPreview
-                            href={`https://zora.co/collections/0x532f7DB02D2ebE12f2CDdfAcDa807FD9B2D96F66/${nft.token.tokenId}`}
-                            contract={nft.token.collectionAddress}
-                            id={nft.token.tokenId}
-                            showBids={false}
-                            showPerpetual={false}                           
+                        <Image
+                            src={`https://ipfs.io/ipfs/${nft.token.metadata.image.slice(7)}`}
+                            width={400}
+                            height={400}
                         />
-                        </MediaConfiguration>
+                        {/* <audio
+                            controls
+                            src={`https://ipfs.io/ipfs/${nft.token.metadata.animation_url.slice(7)}`}
+                        >
+
+                        </audio> */}
                         {/* <div className="">
                             { nft.marketsSummary.length === 0 ? (
                             <div className="mb-5">
